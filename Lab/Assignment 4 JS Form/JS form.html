@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JS Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body class="py-4">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <form id="personForm" class="row g-3 p-3 rounded bg-light">
+                    <h1>JS Form</h1>
+                    <div class="col-md-6">
+                        <label for="inputFirstname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="inputFirstname" placeholder="Muhammad" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputLastname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="inputLastname" placeholder="Yawar" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" name="email"
+                            placeholder="abc@gmail.com" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" />
+                    </div>
+
+                    <fieldset class="row mb-3 mt-4">
+                        <legend class="col-form-label pt-0 d-block">Gender</legend>
+                        <div class="col-sm-6 d-flex gap-3">
+                            <div class="form-check col-md-3">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
+                                    value="Male" checked />
+                                <label class="form-check-label" for="gridRadios1">Male</label>
+                            </div>
+                            <div class="form-check col-md-3">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+                                    value="Female" />
+                                <label class="form-check-label" for="gridRadios2">Female</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+                                    value="Other" />
+                                <label class="form-check-label" for="gridRadios3">Other</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="col-md-6">
+                        <label for="dob" class="form-label">D.O.B</label>
+                        <input type="date" class="form-control" name="dob" id="dob" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="profile" class="form-label">Profile Picture</label>
+                        <input type="file" class="form-control" name="profile" id="profile" />
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="col-form-label pt-0 d-block">Courses</div>
+                        <div class="d-flex gap-1">
+                            <input class="form-check-input" type="checkbox" id="cs" value="Computer Science" />
+                            <label class="form-check-label" for="cs">WPL</label>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <input class="form-check-input" type="checkbox" id="med" value="Medical" />
+                            <label class="form-check-label" for="med">OOP</label>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <input class="form-check-input" type="checkbox" id="com" value="Commerce" />
+                            <label class="form-check-label" for="com">OS</label>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <input class="form-check-input" type="checkbox" id="engr" value="Engineering" />
+                            <label class="form-check-label" for="engr">Calculus</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="country" class="form-label">Country</label>
+                        <select id="country" class="form-select">
+                            <option selected>Choose...</option>
+                        </select>
+                    </div>
+                    <div id="city-col" class="col-md-6 d-none">
+                        <label for="city" class="form-label">City</label>
+                        <select id="city" class="form-select" disabled>
+                            <option disabled selected value="">Choose...</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Add to table</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <table id="dataTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>S.NO</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>DOB</th>
+                            <th>Country</th>
+                            <th>City</th>
+                            <th>Gender</th>
+                            <th>Courses</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const data = {
+                "Pakistan": ["Karachi", "Lahore", "Islamabad", "Peshawar"],
+                "United States": ["New York", "Los Angeles", "Chicago", "Houston"],
+                "United Kingdom": ["London", "Manchester", "Birmingham"],
+            };
+
+            const countrySelect = document.getElementById('country');
+            const citySelect = document.getElementById('city');
+            const cityCol = document.getElementById('city-col');
+
+            function setCityPlaceholder() {
+                citySelect.innerHTML = '';
+                const opt = document.createElement('option');
+                opt.disabled = true;
+                opt.selected = true;
+                opt.value = '';
+                opt.textContent = 'Choose...';
+                citySelect.appendChild(opt);
+            }
+
+            function populateCountries() {
+                countrySelect.innerHTML = '';
+                const placeholder = document.createElement('option');
+                placeholder.value = '';
+                placeholder.selected = true;
+                placeholder.textContent = 'Choose...';
+                countrySelect.appendChild(placeholder);
+
+                Object.keys(data).forEach(country => {
+                    const opt = document.createElement('option');
+                    opt.value = country;
+                    opt.textContent = country;
+                    countrySelect.appendChild(opt);
+                });
+            }
+
+            function showCity(show) {
+                if (show) {
+                    cityCol.classList.remove('d-none');
+                    citySelect.disabled = false;
+                } else {
+                    cityCol.classList.add('d-none');
+                    citySelect.disabled = true;
+                }
+            }
+
+            countrySelect.addEventListener('change', function () {
+                const country = this.value;
+                if (!country) {
+                    setCityPlaceholder();
+                    showCity(false);
+                    return;
+                }
+
+                const cities = data[country];
+                setCityPlaceholder();
+
+                cities.forEach(city => {
+                    const opt = document.createElement('option');
+                    opt.value = city;
+                    opt.textContent = city;
+                    citySelect.appendChild(opt);
+                });
+
+                showCity(true);
+            });
+
+            const form = document.getElementById('personForm');
+            const tbody = document.querySelector('#dataTable tbody');
+            let id = 0;
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const fname = document.getElementById('inputFirstname').value.trim();
+                const lname = document.getElementById('inputLastname').value.trim();
+                const email = document.getElementById('inputEmail').value.trim();
+                const dob = document.getElementById('dob').value;
+                const country = document.getElementById('country').value;
+                const city = document.getElementById('city').value;
+                const gender = document.querySelector('input[name="gridRadios"]:checked').value;
+                const courses = Array.from(form.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value).join(', ');
+
+                if (!fname) {
+                    alert("First Name cannot be empty!");
+                    return;
+                }
+                if (!lname) {
+                    alert("Last Name cannot be empty!");
+                    return;
+                }
+                if (!email) {
+                    alert("Email cannot be empty!");
+                    return;
+                }
+                if (!dob) {
+                    alert("Date of Birth cannot be empty!");
+                    return;
+                }
+                if (!country) {
+                    alert("Please select a Country!");
+                    return;
+                }
+                if (!city) {
+                    alert("Please select a City!");
+                    return;
+                }
+
+                id++;
+                const tr = document.createElement('tr');
+                const values = [id, fname, lname, email, dob, country, city, gender, courses];
+                values.forEach(v => {
+                    const td = document.createElement('td');
+                    td.innerHTML = String(v);
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+                form.reset();
+                showCity(false);
+            });
+
+            populateCountries();
+            setCityPlaceholder();
+            showCity(false);
+        })();
+    </script>
+</body>
+
+</html>
