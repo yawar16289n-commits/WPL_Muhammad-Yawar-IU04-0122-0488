@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Layout</title>
+  <style>
+    .item1, .item5, .item6 {
+      padding: 10px;
+      text-align: center;
+    }
+    .item1 { 
+      background: #46f3f3; 
+      margin-top: 5px;  
+    } 
+    .item3 { 
+      background: #62b7b6; 
+      width: 30%; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .item4 { 
+      background: #f08080; 
+      width: 70%; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .item5 { 
+
+      flex-direction: column;
+
+    } 
+
+    .item6 { 
+      background: #46f3f3; 
+      margin-top: 5px; 
+    } 
+    .content {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      flex: 1; 
+    }
+    .images {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+      margin-bottom: -10px;
+    }
+    .image-box {
+      background: lightgray;
+      width: 210px;
+      height: 40px;
+      padding: 25px;
+      border: 1px solid black;
+    }
+    .container {
+      min-height: 96vh; 
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body style="background: rgb(235, 8, 8);">
+  <div class="container">
+    <div class="item1">Header</div>
+
+    <div class="content">
+      <div class="item3">Aside</div>
+      <div class="item4">
+        <div class="item5">
+          Article
+          <div class="images">
+            <div class="image-box">Image</div>
+            <div class="image-box">Image</div>
+            <div class="image-box">Image</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item6">Footer</div>
+  </div>
+</body>
+</html>
